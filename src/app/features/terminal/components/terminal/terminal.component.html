@@ -2,8 +2,8 @@
   <div class="stdout">
     <ng-template #container></ng-template>
   </div>
-  <div *ngIf="!activatingInProcess && isInputEnabled" class="stdout">
-    <span>~ ></span>
+  <div *ngIf="!activatingInProcess && isInputEnabled" class="stdin">
+    <span class="input-pointer">~ ></span>
     <textarea
       class="input"
       #textarea

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LayoutModule } from '@angular/cdk/layout';
 import { TerminalComponent } from './components/terminal/terminal.component';
 import { SystemWindowModule } from '../system-window/system-window.module';
 import { TerminalStateFacade } from './store/terminal.facade';
@@ -12,12 +13,18 @@ import { DateComponent } from './components/date/date.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
-  declarations: [TerminalComponent, SimpleStdoutLineComponent, DateComponent, ProfileComponent],
+  declarations: [
+    TerminalComponent,
+    SimpleStdoutLineComponent,
+    DateComponent,
+    ProfileComponent,
+  ],
   imports: [
     CommonModule,
     SystemWindowModule,
     StoreModule.forFeature(terminalFeatureKey, terminalReducer),
     EffectsModule.forFeature([TerminalEffects]),
+    LayoutModule,
   ],
   exports: [TerminalComponent],
   providers: [TerminalStateFacade],

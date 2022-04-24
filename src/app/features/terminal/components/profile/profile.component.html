@@ -2,26 +2,35 @@
   <div class="content__line-box">
     <div *ngIf="headers.name != null" class="content__line">
       <span class="header">{{ headers.name }}</span>
-      <pre class="value" *ngIf="originalHeaders.name === headers.name">{{
+      <span class="value" *ngIf="originalHeaders.name === headers.name">{{
         content.name
-      }}</pre>
+      }}</span>
     </div>
 
     <div *ngIf="headers.lastname != null" class="content__line">
       <span class="header">{{ headers.lastname }}</span>
-      <pre
+      <span
         class="value"
         *ngIf="originalHeaders.lastname === headers.lastname"
-        >{{ content.lastname }}</pre
+        >{{ content.lastname }}</span
       >
     </div>
 
     <div *ngIf="headers.type != null" class="content__line">
       <span class="header">{{ headers.type }}</span>
-      <pre class="value" *ngIf="originalHeaders.type === headers.type">{{
+      <span class="value" *ngIf="originalHeaders.type === headers.type">{{
         content.type
-      }}</pre>
+      }}</span>
     </div>
+
+    <figure
+      *ngIf="!isWidthBiggerThan1200px"
+      [ngClass]="{ figure: true, figure_active: content.imgSrc != null }"
+    >
+      <img src="{{ content.imgSrc }}" />
+      <img src="{{ content.imgSrc }}" />
+      <img src="{{ content.imgSrc }}" />
+    </figure>
 
     <div *ngIf="headers.selfDescription != null" class="content__line">
       <span class="header">{{ headers.selfDescription }}</span>
@@ -62,7 +71,10 @@
     </div>
   </div>
 
-  <figure [ngClass]="{ figure: true, figure_active: content.imgSrc != null }">
+  <figure
+    *ngIf="isWidthBiggerThan1200px"
+    [ngClass]="{ figure: true, figure_active: content.imgSrc != null }"
+  >
     <img src="{{ content.imgSrc }}" />
     <img src="{{ content.imgSrc }}" />
     <img src="{{ content.imgSrc }}" />

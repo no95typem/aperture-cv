@@ -30,11 +30,30 @@
   overflow-y: auto;
 }
 
+.stdin,
 .stdout {
   display: grid;
-  grid-template-columns: auto 1fr;
+  width: 100%;
+  grid-template-columns: 170px calc(100% - 170px);
   row-gap: 5px;
   column-gap: 10px;
+}
+
+.stdout {
+  @media (max-width: 700px) {
+    grid-template-columns: 0px 100%;
+    column-gap: 0px;
+
+    ::ng-deep [data-role="date-span"] {
+      display: none;
+    }
+  }
+}
+
+.stdin {
+  @media (max-width: 700px) {
+    grid-template-columns: 30px calc(100% - 40px);
+  }
 }
 
 .input {

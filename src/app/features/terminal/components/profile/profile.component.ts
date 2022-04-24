@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { lastValueFrom, map } from 'rxjs';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { lastValueFrom, map, Subscription } from 'rxjs';
 import { Profile } from 'src/assets/data/profiles/_profile';
 import { typeLettersOneByOne } from '../../helpers/typing-effects';
 import { TerminalOutput } from '../../store/terminal.unserializable';
@@ -9,7 +10,7 @@ import { TerminalOutput } from '../../store/terminal.unserializable';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit, TerminalOutput {
+export class ProfileComponent implements OnInit, OnDestroy, TerminalOutput {
   static readonly HEADERS: Record<keyof Profile, string> = {
     name: 'Name:',
     lastname: 'Last name:',
@@ -34,10 +35,23 @@ export class ProfileComponent implements OnInit, TerminalOutput {
   content: Partial<Profile> = {};
   headers: Partial<typeof ProfileComponent.HEADERS> = {};
   originalHeaders = ProfileComponent.HEADERS;
+  isWidthBiggerThan1200px: boolean = true;
 
-  constructor() {}
+  private subs: Subscription[] = [];
 
-  ngOnInit(): void {}
+  constructor(public breakpointObserver: BreakpointObserver) {}
+
+  ngOnInit(): void {
+    const sub = this.breakpointObserver
+      .observe(['(min-width: 1200px)'])
+      .subscribe((state) => (this.isWidthBiggerThan1200px = state.matches));
+
+    this.subs.push(sub);
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((sub) => sub.unsubscribe());
+  }
 
   async activate() {
     this.content = {};
