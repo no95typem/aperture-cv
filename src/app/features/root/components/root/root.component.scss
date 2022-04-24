@@ -29,3 +29,11 @@
     opacity: 1;
   }
 }
+
+.title {
+  font-size: medium;
+
+  @media (max-width: 800px) {
+    font-size: xx-small;
+  }
+}
