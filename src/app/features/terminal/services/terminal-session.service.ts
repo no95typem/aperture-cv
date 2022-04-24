@@ -194,8 +194,11 @@ export class TerminalSessionService {
 
     const unserializedMemory =
       TERMINAL_SESSIONS_UNSERIALIZED_MEMORY[this.session$$.value!.id];
-    const isProfileShown = Object.keys(this.session$$.value!.journal).some(
-      (key) => unserializedMemory[key]?.data?.lastname === 'Kapalin'
+    const isProfileShown = Object.values(this.session$$.value!.journal).some(
+      (pointers) =>
+        pointers.some(
+          (pointer) => unserializedMemory[pointer]?.data?.lastname === 'Kapalin'
+        )
     );
 
     if (!isProfileShown) {
