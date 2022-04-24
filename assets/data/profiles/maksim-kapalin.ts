@@ -146,6 +146,16 @@ export const profile: Profile = {
       title: 'Telegram',
       href: 'https://t.me/no95typem',
     },
+    {
+      type: 'link',
+      title: 'LinkedIn profile',
+      href: 'https://www.linkedin.com/in/maksim-kapalin-827a33219/',
+    },
+    {
+      type: 'link',
+      title: 'GitHub profile',
+      href: 'https://github.com/no95typem',
+    },
   ],
   imgSrc: './assets/data/profiles/maksim_kapalin.png',
 };
