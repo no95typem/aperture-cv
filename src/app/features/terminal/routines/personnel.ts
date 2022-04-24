@@ -269,7 +269,7 @@ function profileShow({ sessionId, terminalSF, args }: PersonnelRoutineArgs) {
 const PROFILE_DEFAULT_MSGS = [
   'The command is wrong or unknown or this functional is not implemented yet, sorry.',
   'Available commands:',
-  'show',
+  'personnel profile show',
 ];
 function profileDefault({ sessionId, terminalSF, args }: PersonnelRoutineArgs) {
   const componentType = SimpleStdoutLineComponent;
