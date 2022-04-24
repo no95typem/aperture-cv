@@ -1,10 +1,10 @@
-# aperture-cv
+# ApertureCV
 
 My new, Aperture Science themed (portal 2), CV
 
-# AngularCv
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.2.
+
+Please, [check it out here](https://no95typem.github.io/aperture-cv/)
 
 ## Development server
 
