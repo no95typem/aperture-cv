@@ -147,5 +147,5 @@ export const profile: Profile = {
       href: 'https://t.me/no95typem',
     },
   ],
-  imgSrc: '/assets/data/profiles/maksim_kapalin.png',
+  imgSrc: './assets/data/profiles/maksim_kapalin.png',
 };

@@ -32,5 +32,5 @@ export const profile: Profile = {
   ],
   updatedDate: 1650727246205,
   systemEstimation: `The human, in the profile. She looks so familiar...`,
-  imgSrc: '/assets/data/profiles/caroline-unknown.png',
+  imgSrc: './assets/data/profiles/caroline-unknown.png',
 };
