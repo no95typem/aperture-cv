@@ -45,5 +45,5 @@ export const profile: Profile = {
                     silver-tongued self-starter, and a good match 
                     for any cooperative test partner, providing 
                     they shut up and listen. `,
-  imgSrc: '/assets/data/profiles/cave-johnson.png',
+  imgSrc: './assets/data/profiles/cave-johnson.png',
 };
