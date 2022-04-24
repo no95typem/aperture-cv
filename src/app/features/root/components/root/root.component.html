@@ -1,0 +1,24 @@
+<div class="panel">
+  <acv-system-panel
+    [style]="{
+      display: 'grid',
+      'grid-template-columns': '1fr 1fr 1fr',
+      'grid-template-rows': '100%',
+      'align-items': 'center'
+    }"
+  >
+    <span>Aperture Labs Remote Console</span>
+    <acv-svg-aperture-v1 [height]="'100%'"></acv-svg-aperture-v1>
+    <a class="github-link" href="" target="_blank"></a>
+  </acv-system-panel>
+</div>
+<div class="content">
+  <acv-system-window [width]="'90%'" [height]="'90%'">
+    <acv-terminal *ngIf="isTermLoaded; else splash_screen"></acv-terminal>
+  </acv-system-window>
+  <ng-template #splash_screen>
+    <acv-splash-screen-aperture
+      [$$progress]="loadingProgress"
+    ></acv-splash-screen-aperture>
+  </ng-template>
+</div>

@@ -1,0 +1,15 @@
+<div class="content">
+  <div class="stdout">
+    <ng-template #container></ng-template>
+  </div>
+  <div *ngIf="!activatingInProcess && isInputEnabled" class="stdout">
+    <span>~ ></span>
+    <textarea
+      class="input"
+      #textarea
+      autofocus
+      (keypress)="stdin($event)"
+    ></textarea>
+  </div>
+</div>
+<img class="logo" src="assets/images/aperture-logo.png" />

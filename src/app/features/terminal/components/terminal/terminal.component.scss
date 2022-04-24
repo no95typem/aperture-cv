@@ -1,0 +1,63 @@
+::ng-deep a {
+  color: rgba(0, 255, 255, 1);
+  &:visited {
+    color: rgb(88, 133, 134);
+  }
+  &:hover {
+    color: rgba(255, 215, 0, 1);
+  }
+  &:active {
+    color: var(--accent-color, rgba(252, 175, 1, 1));
+  }
+}
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.stdout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 5px;
+  column-gap: 10px;
+}
+
+.input {
+  resize: none;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 0px;
+  margin: 0px;
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.logo {
+  max-width: 70%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: invert(77%) sepia(32%) saturate(3679%) hue-rotate(358deg)
+    brightness(96%) contrast(108%);
+  opacity: 0.3;
+  z-index: -1;
+}

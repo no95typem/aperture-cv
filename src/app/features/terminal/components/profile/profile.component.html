@@ -1,0 +1,144 @@
+<div class="content_with-aside-box" *ngIf="content != null">
+  <div class="content__line-box">
+    <div *ngIf="headers.name != null" class="content__line">
+      <span class="header">{{ headers.name }}</span>
+      <pre class="value" *ngIf="originalHeaders.name === headers.name">{{
+        content.name
+      }}</pre>
+    </div>
+
+    <div *ngIf="headers.lastname != null" class="content__line">
+      <span class="header">{{ headers.lastname }}</span>
+      <pre
+        class="value"
+        *ngIf="originalHeaders.lastname === headers.lastname"
+        >{{ content.lastname }}</pre
+      >
+    </div>
+
+    <div *ngIf="headers.type != null" class="content__line">
+      <span class="header">{{ headers.type }}</span>
+      <pre class="value" *ngIf="originalHeaders.type === headers.type">{{
+        content.type
+      }}</pre>
+    </div>
+
+    <div *ngIf="headers.selfDescription != null" class="content__line">
+      <span class="header">{{ headers.selfDescription }}</span>
+      <span
+        class="value"
+        *ngIf="originalHeaders.selfDescription === headers.selfDescription"
+        >{{ content.selfDescription }}</span
+      >
+    </div>
+
+    <div *ngIf="headers.slogan != null" class="content__line">
+      <span class="header">{{ headers.slogan }}</span>
+      <span class="value" *ngIf="originalHeaders.slogan === headers.slogan">{{
+        content.slogan
+      }}</span>
+    </div>
+
+    <div *ngIf="headers.education != null" class="content__line">
+      <span class="header">{{ headers.education }}</span>
+      <ul *ngIf="headers.education === originalHeaders.education">
+        <li *ngFor="let entry of content.education">
+          {{ entry.title }}<br />{{ entry.institution }} <br />
+          {{ entry.years }}
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="headers.workExperience != null" class="content__line">
+      <span class="header">{{ headers.workExperience }}</span>
+      <ul *ngIf="headers.workExperience === originalHeaders.workExperience">
+        <li *ngFor="let entry of content.workExperience">
+          {{ entry.company }}<br />{{ entry.title }} {{ entry.years
+          }}<br /><span *ngIf="entry.description != null">{{
+            entry.description
+          }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <figure [ngClass]="{ figure: true, figure_active: content.imgSrc != null }">
+    <img src="{{ content.imgSrc }}" />
+    <img src="{{ content.imgSrc }}" />
+    <img src="{{ content.imgSrc }}" />
+  </figure>
+</div>
+
+<div class="content__line-box" *ngIf="content != null">
+  <div *ngIf="headers.primarySkills != null" class="content__line">
+    <span class="header">{{ headers.primarySkills }}</span
+    ><span
+      *ngIf="originalHeaders.primarySkills === headers.primarySkills"
+      class="value"
+      >{{ content.primarySkills!.join(", ") }}</span
+    >
+  </div>
+
+  <div *ngIf="headers.secondarySkills != null" class="content__line">
+    <span class="header">{{ headers.secondarySkills }}</span
+    ><span
+      *ngIf="originalHeaders.secondarySkills === headers.secondarySkills"
+      class="value"
+      >{{ content.secondarySkills!.join(", ") }}</span
+    >
+  </div>
+
+  <div *ngIf="headers.languages != null" class="content__line">
+    <span class="header">{{ headers.languages }}</span>
+    <ul *ngIf="originalHeaders.languages === headers.languages" class="value">
+      <li *ngFor="let entry of content.languages">
+        {{ entry.name }} ({{ entry.level }})
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="headers.interests != null" class="content__line">
+    <span class="header">{{ headers.interests }}</span>
+    <ul *ngIf="originalHeaders.interests === headers.interests" class="value">
+      <li *ngFor="let entry of content.interests">
+        {{ entry }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="headers.links != null" class="content__line">
+    <span class="header">{{ headers.links }}</span>
+    <ul *ngIf="originalHeaders.links === headers.links" class="value">
+      <li *ngFor="let entry of content.links">
+        <a href="{{ entry.href }}" target="_blank">{{ entry.title }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="headers.contacts != null" class="content__line">
+    <span class="header">{{ headers.contacts }}</span>
+    <ul *ngIf="originalHeaders.contacts === headers.contacts" class="value">
+      <li *ngFor="let entry of content.contacts">
+        <a href="{{ entry.href }}" target="_blank">{{ entry.title }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="headers.updatedDate != null" class="content__line">
+    <span class="header">{{ headers.updatedDate }}</span>
+    <span
+      class="value"
+      *ngIf="originalHeaders.updatedDate === headers.updatedDate"
+      >{{ content.updatedDate | date }}</span
+    >
+  </div>
+
+  <div *ngIf="headers.systemEstimation != null" class="content__line">
+    <span class="header">{{ headers.systemEstimation }}</span>
+    <span
+      class="value"
+      *ngIf="originalHeaders.systemEstimation === headers.systemEstimation"
+      >{{ content.systemEstimation }}</span
+    >
+  </div>
+</div>
