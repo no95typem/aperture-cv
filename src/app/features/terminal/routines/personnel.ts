@@ -144,6 +144,7 @@ function listEmployees({ sessionId, terminalSF, args }: PersonnelRoutineArgs) {
     'Fetching profiles...',
     `Found ${EMPLOYEES.length} employees profile`,
     EMPLOYEES.map((profile, i) => `${i}: ${profile.name} ${profile.lastname}`),
+    'Please use personnel profile show to get details',
   ];
 
   const componentType = SimpleStdoutLineComponent;
@@ -172,6 +173,7 @@ function listApplicants({ sessionId, terminalSF, args }: PersonnelRoutineArgs) {
     'Fetching profiles...',
     `Found ${APPLICANTS.length} applicants profile`,
     APPLICANTS.map((profile, i) => `${i}: ${profile.name} ${profile.lastname}`),
+    'Please use personnel profile show to get details',
   ];
 
   const componentType = SimpleStdoutLineComponent;
@@ -222,6 +224,7 @@ function profileShow({ sessionId, terminalSF, args }: PersonnelRoutineArgs) {
       'Please check your typing, do not forget to use Pascal Case, e.g.:',
       'personnel profile show Cave Johnson',
       'personnel profile show Maksim Kapalin',
+      'personnel profile show Caroline Unknown',
     ];
 
     const componentType = SimpleStdoutLineComponent;
