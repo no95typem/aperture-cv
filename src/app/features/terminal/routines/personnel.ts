@@ -43,9 +43,9 @@ export function runPersonnelRoutine({
 const ERR_MSG = 'Error! Wrong args!';
 const HELP_MSGS = [
   'Available actions:',
-  'personnel --help -h    show this message',
-  'personnel list         list available persons',
-  'personnel profile      show/edit/etc. a profile',
+  '"personnel --help -h" to show this message',
+  '"personnel list <type>" to list available persons',
+  '"personnel profile <command> <options>" to show/edit/etc. a profile',
 ];
 function help({
   sessionId,
@@ -100,13 +100,17 @@ function list({ sessionId, terminalSF, args }: PersonnelRoutineArgs) {
         sessionId,
         terminalSF,
         args,
-        err: 'Please specify a type: applicants or employees',
+        err:
+          type != undefined
+            ? 'Please specify a type: applicants or employees'
+            : undefined,
       });
       return;
   }
 }
 
 const LIST_HELP_MSGS = [
+  'Usage: personnel list <type>',
   'Available actions:',
   'personnel list employees',
   'personnel list applicants',
@@ -144,7 +148,7 @@ function listEmployees({ sessionId, terminalSF, args }: PersonnelRoutineArgs) {
     'Fetching profiles...',
     `Found ${EMPLOYEES.length} employees profile`,
     EMPLOYEES.map((profile, i) => `${i}: ${profile.name} ${profile.lastname}`),
-    'Please use personnel profile show to get details',
+    'Please use "personnel profile show Name Surname" to get details',
   ];
 
   const componentType = SimpleStdoutLineComponent;
@@ -173,7 +177,7 @@ function listApplicants({ sessionId, terminalSF, args }: PersonnelRoutineArgs) {
     'Fetching profiles...',
     `Found ${APPLICANTS.length} applicants profile`,
     APPLICANTS.map((profile, i) => `${i}: ${profile.name} ${profile.lastname}`),
-    'Please use personnel profile show to get details',
+    'Please use "personnel profile show Name Surname" to get details',
   ];
 
   const componentType = SimpleStdoutLineComponent;
@@ -267,20 +271,26 @@ function profileShow({ sessionId, terminalSF, args }: PersonnelRoutineArgs) {
 }
 
 const PROFILE_DEFAULT_MSGS = [
-  'The command is wrong or unknown or this functional is not implemented yet, sorry.',
+  'Usage: personnel profile <command> <options>',
   'Available commands:',
   'personnel profile show',
 ];
 function profileDefault({ sessionId, terminalSF, args }: PersonnelRoutineArgs) {
   const componentType = SimpleStdoutLineComponent;
 
-  const pointers = PROFILE_DEFAULT_MSGS.map((msg, index) =>
+  const arg = args[0];
+
+  const MSGS =
+    arg != null
+      ? ['ERROR: The command is unknown', ...PROFILE_DEFAULT_MSGS]
+      : PROFILE_DEFAULT_MSGS;
+
+  const pointers = MSGS.map((msg, index) =>
     createUnserializedEntry({
       componentType,
       sessionId,
       data: msg,
-      endRoutine:
-        index === PROFILE_DEFAULT_MSGS.length - 1 ? routineKey : undefined,
+      endRoutine: index === MSGS.length - 1 ? routineKey : undefined,
     })
   );
 

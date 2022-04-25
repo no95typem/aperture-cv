@@ -3,7 +3,7 @@
     <ng-template #container></ng-template>
   </div>
   <div *ngIf="!activatingInProcess && isInputEnabled" class="stdin">
-    <span class="input-pointer">~ ></span>
+    <span class="input-pointer" (click)="focusInput()">~ ></span>
     <textarea
       class="input"
       #textarea

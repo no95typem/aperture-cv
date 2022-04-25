@@ -29,7 +29,7 @@ export class TerminalSessionService {
 
   setId(id: string) {
     this.selfId = id;
-    this.createdForMeMsgTemplate = `New session created for ${this.selfId}`;
+    this.createdForMeMsgTemplate = `New session has been created for ${this.selfId}`;
     this.watchTerminalDbus();
     return this;
   }
@@ -202,7 +202,7 @@ export class TerminalSessionService {
     );
 
     if (!isProfileShown) {
-      msgs.push('Gentleman module activated: execute the default command...');
+      msgs.push('"Gentleman" module activated: execute the default command...');
       setTimeout(() => {
         this.helpUser();
       });
@@ -249,6 +249,6 @@ export class TerminalSessionService {
 
 const START_MSGS = [
   'System startup initialized...',
-  'System startup is succesfully complete.',
+  'System startup is succesfully completed.',
   `Enter the next command, or use 'help' to get a list of available commands.`,
 ];

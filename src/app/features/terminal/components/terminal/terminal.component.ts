@@ -144,6 +144,12 @@ export class TerminalComponent implements OnInit, AfterViewInit {
     }
   }
 
+  focusInput() {
+    setTimeout(() => {
+      this.textarea?.nativeElement.focus();
+    }, 5);
+  }
+
   private activate(selfCall = false) {
     if (!selfCall && this.activatingInProcess$$.value) {
       return;
@@ -157,9 +163,7 @@ export class TerminalComponent implements OnInit, AfterViewInit {
 
     if (nextMemoryEntry == null) {
       this.activatingInProcess$$.next(false);
-      setTimeout(() => {
-        this.textarea?.nativeElement.focus();
-      }, 5);
+      this.focusInput();
       return;
     }
 
@@ -169,9 +173,7 @@ export class TerminalComponent implements OnInit, AfterViewInit {
 
     if (theNextEntryToActivate == null) {
       this.activatingInProcess$$.next(false);
-      setTimeout(() => {
-        this.textarea?.nativeElement.focus();
-      }, 5);
+      this.focusInput();
       return;
     }
 

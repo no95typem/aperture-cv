@@ -51,7 +51,7 @@ const reducer = createReducer(
     return {
       ...state,
       msg: {
-        text: `New session created for ${forId}`,
+        text: `New session has been created for ${forId}`,
         addInfo: newSessionId,
       },
       sessions,
