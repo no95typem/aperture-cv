@@ -3,6 +3,7 @@ import { TerminalOutput } from '../../store/terminal.unserializable';
 
 import * as TypingEffects from '../../helpers/typing-effects';
 import { DatePipe } from '@angular/common';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'acv-date',
@@ -13,9 +14,11 @@ import { DatePipe } from '@angular/common';
 export class DateComponent implements OnInit, TerminalOutput {
   static readonly FORMAT = 'YY/MM/dd HH:mm:ss';
 
+  private activationSubscription: Subscription | null = null;
+
   @Input() data: any;
 
-  content: string = '';
+  content = new BehaviorSubject<string>('');
 
   constructor(private datePipe: DatePipe) {}
 
@@ -23,17 +26,21 @@ export class DateComponent implements OnInit, TerminalOutput {
 
   activate() {
     return new Promise<void>((res) => {
-      TypingEffects.typeLettersOneByOne(
+      this.activationSubscription = TypingEffects.typeLettersOneByOne(
         this.datePipe.transform(this.data, DateComponent.FORMAT) ?? ''
       ).subscribe({
-        next: (value) => (this.content = value),
+        next: (value) => this.content.next(value),
         complete: () => res(),
       });
+
+      this.activationSubscription.add(() => res());
     });
   }
 
   activateInstantly() {
-    this.content =
-      this.datePipe.transform(this.data, DateComponent.FORMAT) ?? '';
+    this.activationSubscription?.unsubscribe();
+    this.content.next(
+      this.datePipe.transform(this.data, DateComponent.FORMAT) ?? ''
+    );
   }
 }

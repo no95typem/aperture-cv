@@ -4,6 +4,7 @@ import {
   Component,
   ComponentRef,
   ElementRef,
+  OnDestroy,
   OnInit,
   Optional,
   Type,
@@ -26,7 +27,7 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./terminal.component.scss'],
   providers: [TerminalSessionService],
 })
-export class TerminalComponent implements OnInit, AfterViewInit {
+export class TerminalComponent implements OnInit, AfterViewInit, OnDestroy {
   private selfId = uuid.v4();
 
   @ViewChild('container', { read: ViewContainerRef })
@@ -78,6 +79,10 @@ export class TerminalComponent implements OnInit, AfterViewInit {
       .setId(this.selfId)
       .setActivationListener(this.activatingInProcess$$.asObservable())
       .createSession();
+  }
+
+  ngOnDestroy() {
+    this.activatingInProcess$$.complete();
   }
 
   private sendSelfInfo() {
@@ -133,6 +138,7 @@ export class TerminalComponent implements OnInit, AfterViewInit {
       return memory;
     }, this.memory);
 
+    // plan the task to avoid "changed after checking" error
     setTimeout(() => {
       this.activate();
     });
@@ -147,7 +153,7 @@ export class TerminalComponent implements OnInit, AfterViewInit {
   focusInput() {
     setTimeout(() => {
       this.textarea?.nativeElement.focus();
-    }, 5);
+    }, 5); // we need a small timeout bigger then 0 ms to make this thing work properly
   }
 
   private activate(selfCall = false) {

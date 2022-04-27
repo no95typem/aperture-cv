@@ -3,7 +3,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export function typeLettersOneByOne(fullText: string): Observable<string> {
   const subj$$ = new BehaviorSubject('');
 
-  setTimeout(() => {
+  // give a possibility to get the subj$$ before typing
+  queueMicrotask(() => {
     typeNextLetterUntilEnd({
       text: '',
       fullText: `${fullText}`,
@@ -30,7 +31,8 @@ function typeNextLetterUntilEnd({
   } else {
     const newText = fullText.slice(0, text.length + 1);
     subj$$.next(newText);
-    const timeout = nextChar === ' ' ? 0 : 50;
+    const timeout = nextChar === ' ' ? 0 : 50; // ! TODO: make this magic value an arg
+    // Give the browser an opportunity to render our changes
     setTimeout(() => {
       typeNextLetterUntilEnd({
         text: newText,

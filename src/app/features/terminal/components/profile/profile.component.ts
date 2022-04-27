@@ -1,5 +1,12 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { lastValueFrom, map, Subscription } from 'rxjs';
 import { Profile } from 'src/assets/data/profiles/_profile';
 import { typeLettersOneByOne } from '../../helpers/typing-effects';
@@ -9,6 +16,7 @@ import { TerminalOutput } from '../../store/terminal.unserializable';
   selector: 'acv-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit, OnDestroy, TerminalOutput {
   static readonly HEADERS: Record<keyof Profile, string> = {
@@ -30,6 +38,19 @@ export class ProfileComponent implements OnInit, OnDestroy, TerminalOutput {
     systemEstimation: 'System estimation:',
   };
 
+  static async iterateActivators(
+    activatorFuncs: ActivatorFunc[],
+    index = 0
+  ): Promise<void> {
+    if (index >= activatorFuncs.length) {
+      return;
+    }
+
+    await activatorFuncs[index]();
+
+    return this.iterateActivators(activatorFuncs, index + 1);
+  }
+
   @Input() data: Profile | null = null;
 
   content: Partial<Profile> = {};
@@ -39,7 +60,10 @@ export class ProfileComponent implements OnInit, OnDestroy, TerminalOutput {
 
   private subs: Subscription[] = [];
 
-  constructor(public breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     const sub = this.breakpointObserver
@@ -81,6 +105,7 @@ export class ProfileComponent implements OnInit, OnDestroy, TerminalOutput {
                 };
                 newHeaders[key as keyof Profile] = v;
                 this.headers = newHeaders;
+                this.changeDetectorRef.markForCheck();
 
                 return v;
               })
@@ -94,22 +119,8 @@ export class ProfileComponent implements OnInit, OnDestroy, TerminalOutput {
   }
 
   activateInstantly() {
-    this.content = {};
-  }
-
-  static iterateActivators(
-    activatorFuncs: ActivatorFunc[],
-    index = 0
-  ): Promise<void> {
-    const theNext = activatorFuncs[index];
-
-    if (theNext == null) {
-      return Promise.resolve();
-    }
-
-    return theNext().then(() =>
-      this.iterateActivators(activatorFuncs, index + 1)
-    );
+    this.content = this.data ?? {};
+    this.headers = ProfileComponent.HEADERS;
   }
 }
 
